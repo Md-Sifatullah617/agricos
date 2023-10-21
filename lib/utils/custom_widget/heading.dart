@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Heading extends StatelessWidget {
   final bool? title;
   final double? logoPosition;
+  final bool? needChange;
   const Heading({
     super.key,
     this.title,
     this.logoPosition,
+    this.needChange = false,
   });
 
   @override
@@ -18,7 +20,9 @@ class Heading extends StatelessWidget {
         Positioned(
           top: 0,
           child: Image.asset(
-            'assets/images/Group 3.png',
+            needChange!
+                ? 'assets/images/Group 4.png'
+                : 'assets/images/Group 3.png',
             width: 360.w,
             fit: BoxFit.fill,
             alignment: Alignment.center,

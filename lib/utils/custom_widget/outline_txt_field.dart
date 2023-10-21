@@ -37,7 +37,7 @@ class OutlinetxtField extends StatelessWidget {
         controller: textController,
         decoration: InputDecoration(
           contentPadding:
-              EdgeInsets.only(top: 7.h, left: 20.w, bottom: 5.h, right: 5.w),
+              EdgeInsets.only(top: 7.h, left: 20.w, bottom: 10.h, right: 5.w),
           hintText: hinttxt,
           hintStyle: TextStyle(
             fontSize: 15.sp,

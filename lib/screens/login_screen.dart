@@ -1,3 +1,4 @@
+import 'package:agricos/screens/after_login_page.dart';
 import 'package:agricos/screens/signup_screen.dart';
 import 'package:agricos/utils/custom_widget/custom_text.dart';
 import 'package:agricos/utils/custom_widget/heading.dart';
@@ -124,7 +125,12 @@ class LoginPage extends StatelessWidget {
         Positioned(
             bottom: 80.h,
             child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AfterLoginPage()));
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreenAccent.shade700,
                   shape: RoundedRectangleBorder(
