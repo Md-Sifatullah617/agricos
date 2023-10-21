@@ -7,6 +7,7 @@ class CustomText extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontweight;
   final TextAlign? txtAlign;
+  final bool? isUnderline;
   const CustomText({
     super.key,
     this.text,
@@ -14,6 +15,7 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.fontweight,
     this.txtAlign,
+    this.isUnderline = false,
   });
 
   @override
@@ -21,10 +23,11 @@ class CustomText extends StatelessWidget {
     return Text(
       text!,
       style: TextStyle(
-        fontSize: fontSize ?? 20.sp,
-        color: txtColor ?? Colors.black,
-        fontWeight: fontweight ?? FontWeight.bold,
-      ),
+          fontSize: fontSize ?? 20.sp,
+          color: txtColor ?? Colors.black,
+          fontWeight: fontweight ?? FontWeight.bold,
+          decoration:
+              isUnderline! ? TextDecoration.underline : TextDecoration.none),
       textAlign: txtAlign ?? TextAlign.center,
     );
   }

@@ -5,11 +5,15 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? txtController;
   final String? hintTxt;
   final IconData? icondata;
+  final IconData? suffixicon;
+  final bool? isUnderline;
   const CustomTextFormField({
     super.key,
     this.txtController,
     this.hintTxt,
     this.icondata,
+    this.suffixicon,
+    this.isUnderline = true,
   });
 
   @override
@@ -31,6 +35,10 @@ class CustomTextFormField extends StatelessWidget {
         prefixIcon: Icon(
           icondata,
           color: Colors.white,
+        ),
+        suffixIcon: Icon(
+          suffixicon,
+          color: Colors.lightGreenAccent,
         ),
         border: const UnderlineInputBorder(
           borderSide: BorderSide(
