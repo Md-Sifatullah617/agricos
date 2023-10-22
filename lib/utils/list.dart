@@ -72,3 +72,60 @@ List homeList = [
     'exp2': '',
   }
 ];
+
+List searchList = [
+  {
+    'id': 1,
+    'image':
+        'https://network.expertisefinder.com/expert-profile-photo/bill-miller',
+    'exp': 'Expert In:\n > Vegetables Disease Management',
+  },
+  {
+    'id': 2,
+    'image':
+        'https://network.expertisefinder.com/expert-profile-photo/david-lobell',
+    'exp': 'Expert In:\n > Crop yield gaps\n > Environmental',
+  },
+  {
+    'id': 3,
+    'image':
+        'https://network.expertisefinder.com/expert-profile-photo/helen-booker',
+    'exp': 'Expert In:\n > Wheat\n > Agronomy',
+  },
+  {
+    'id': 4,
+    'image':
+        'https://network.expertisefinder.com/expert-profile-photo/ronnie-coffman',
+    'exp': 'Expert In:\n > Wheat genetics and\n > breeding',
+  },
+  {
+    'id': 5,
+    'image':
+        'https://network.expertisefinder.com/expert-profile-photo/john-borden',
+    'exp': 'Expert In:\n > Floricultural crop production',
+  },
+  {
+    'id': 6,
+    'image':
+        'https://network.expertisefinder.com/expert-profile-photo/nadir-erbilgin',
+    'exp': 'Expert In:\n > Chemical ecology\n > Plant-insect interactions',
+  },
+  {
+    'id': 7,
+    'image':
+        'https://network.expertisefinder.com/expert-profile-photo/bill-miller',
+    'exp': 'Expert In:\n > Floricultural crop production',
+  },
+  {
+    'id': 8,
+    'image':
+        'https://network.expertisefinder.com/expert-profile-photo/bill-miller',
+    'exp': 'Expert In:\n > Floricultural crop production',
+  },
+  {
+    'id': 9,
+    'image':
+        'https://network.expertisefinder.com/expert-profile-photo/bill-miller',
+    'exp': 'Expert In:\n > Floricultural crop production',
+  }
+];

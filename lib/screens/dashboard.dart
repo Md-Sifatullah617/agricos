@@ -1,3 +1,4 @@
+import 'package:agricos/screens/search_page.dart';
 import 'package:agricos/utils/custom_widget/custom_text.dart';
 import 'package:agricos/utils/custom_widget/heading.dart';
 import 'package:agricos/utils/list.dart';
@@ -222,7 +223,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           Positioned(
             bottom: 40.h,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const SearchPage();
+                }));
+              },
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(
                     side: BorderSide(color: Colors.lightGreenAccent)),
