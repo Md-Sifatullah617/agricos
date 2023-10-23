@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDPhDFYmS3ERl4TrZ592R8W-gYYmMaxgKs',
-    appId: '1:207898209213:android:24b19d6ab0e6ba13b680d4',
+    appId: '1:207898209213:android:22626d7983509fdbb680d4',
     messagingSenderId: '207898209213',
     projectId: 'agricros-24eed',
     storageBucket: 'agricros-24eed.appspot.com',
