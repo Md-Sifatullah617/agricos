@@ -26,7 +26,7 @@ class CustomTextFormField extends StatelessWidget {
       ),
       decoration: InputDecoration(
         constraints: const BoxConstraints(maxHeight: 35),
-        contentPadding: const EdgeInsets.only(bottom: -5),
+        contentPadding: const EdgeInsets.only(bottom: -5, right: 0),
         hintText: hintTxt,
         hintStyle: TextStyle(
           fontSize: 15.sp,
@@ -36,10 +36,12 @@ class CustomTextFormField extends StatelessWidget {
           icondata,
           color: Colors.white,
         ),
-        suffixIcon: Icon(
-          suffixicon,
-          color: Colors.lightGreenAccent,
-        ),
+        suffixIcon: suffixicon == null
+            ? const SizedBox.shrink()
+            : Icon(
+                suffixicon,
+                color: Colors.lightGreenAccent,
+              ),
         border: const UnderlineInputBorder(
           borderSide: BorderSide(
             color: Colors.white,

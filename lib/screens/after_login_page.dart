@@ -1,7 +1,9 @@
 import 'package:agricos/screens/dashboard.dart';
+import 'package:agricos/screens/login_screen.dart';
 import 'package:agricos/utils/custom_widget/custom_text.dart';
 import 'package:agricos/utils/custom_widget/heading.dart';
 import 'package:agricos/utils/custom_widget/outline_txt_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,8 +22,12 @@ class AfterLoginPage extends StatelessWidget {
           top: 120.h,
           left: 25.w,
           child: InkWell(
-            onTap: () {
-              Navigator.pop(context);
+            onTap: () async {
+              await FirebaseAuth.instance.signOut().then((value) =>
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage())));
             },
             child: Image.asset(
               'assets/icons/Vector (6).png',

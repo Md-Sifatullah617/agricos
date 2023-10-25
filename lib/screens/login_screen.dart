@@ -1,8 +1,10 @@
 import 'package:agricos/screens/after_login_page.dart';
 import 'package:agricos/screens/signup_screen.dart';
 import 'package:agricos/utils/custom_widget/custom_text.dart';
+import 'package:agricos/utils/custom_widget/custom_toast.dart';
 import 'package:agricos/utils/custom_widget/heading.dart';
 import 'package:agricos/utils/custom_widget/textform_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,6 +18,29 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController pwdController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<void> firebaseLogIN() async {
+    try {
+      await _auth
+          .signInWithEmailAndPassword(
+            email: emailController.text,
+            password: pwdController.text,
+          )
+          .then((value) => Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const AfterLoginPage())));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        customToast(msg: 'No user found for that email.', isError: true);
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        customToast(
+            msg: 'Wrong password provided for that user.', isError: true);
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +69,15 @@ class _LoginPageState extends State<LoginPage> {
                   'assets/images/Farmer image for profile 1.png',
                 ),
                 SizedBox(height: 10.h),
-                const CustomTextFormField(
+                CustomTextFormField(
+                  txtController: emailController,
                   hintTxt: 'Enter your email',
                   icondata: Icons.email_outlined,
+                  // suffixicon: Icons.remove_red_eye,
                 ),
                 SizedBox(height: 10.h),
-                const CustomTextFormField(
+                CustomTextFormField(
+                  txtController: pwdController,
                   hintTxt: 'Password',
                   icondata: Icons.lock_outline_rounded,
                 ),
@@ -132,10 +160,7 @@ class _LoginPageState extends State<LoginPage> {
             bottom: 80.h,
             child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AfterLoginPage()));
+                  firebaseLogIN();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreenAccent.shade700,
