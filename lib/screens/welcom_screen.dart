@@ -1,3 +1,5 @@
+import 'package:agricos/controller/auth_controller.dart';
+import 'package:agricos/screens/after_login_page.dart';
 import 'package:agricos/screens/login_screen.dart';
 import 'package:agricos/utils/custom_widget/heading.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +23,14 @@ class WelcomScreenPage extends StatelessWidget {
               top: 205.h,
               child: Image.asset(
                 'assets/images/Man in paddy field green farming 1.png',
-                height: 330.h,
-                width: 300.w,
+                height: 320.h,
+                width: 280.w,
                 fit: BoxFit.fill,
                 alignment: Alignment.center,
               ),
             ),
             Positioned(
-              bottom: 85.h,
+              bottom: 90.h,
               child: Text(
                 'Without Agriculture we\ncan’t survive on this planet',
                 style: TextStyle(
@@ -39,9 +41,16 @@ class WelcomScreenPage extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
+              onTap: () async {
+                await AuthService.isLoggedIn()
+                    ? Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AfterLoginPage()))
+                    : Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
               },
               child: Stack(
                 alignment: Alignment.center,

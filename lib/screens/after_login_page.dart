@@ -19,7 +19,7 @@ class AfterLoginPage extends StatelessWidget {
         Container(),
         const Heading(),
         Positioned(
-          top: 120.h,
+          top: 130.h,
           left: 25.w,
           child: InkWell(
             onTap: () async {
@@ -35,7 +35,7 @@ class AfterLoginPage extends StatelessWidget {
           ),
         ),
         Positioned(
-            top: 220,
+            top: 190.h,
             child: Container(
                 width: 300.w,
                 child: Column(

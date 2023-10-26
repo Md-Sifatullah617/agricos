@@ -1,8 +1,8 @@
+import 'package:agricos/controller/auth_controller.dart';
 import 'package:agricos/screens/otp_code.dart';
 import 'package:agricos/utils/custom_widget/custom_text.dart';
 import 'package:agricos/utils/custom_widget/custom_toast.dart';
 import 'package:agricos/utils/custom_widget/outline_txt_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,45 +19,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-
-  String verificationId = "";
-  Future<void> verifyPhoneNumber(BuildContext context) async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-
-    try {
-      await auth.verifyPhoneNumber(
-        phoneNumber: phoneController.text,
-        verificationCompleted: (PhoneAuthCredential authCredential) async {
-          print('verificationCompleted $authCredential');
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          print("Verification failed: ${e.message}");
-        },
-        codeSent: (String verId, int? forceResendingToken) {
-          setState(() {
-            verificationId = verId;
-          });
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OtpCodeScreen(
-                phone: phoneController.text,
-                verificationId: verificationId,
-              ),
-            ),
-          );
-        },
-        codeAutoRetrievalTimeout: (String verId) {
-          setState(() {
-            verificationId = verId;
-          });
-        },
-        timeout: const Duration(seconds: 60),
-      );
-    } catch (e) {
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +106,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       confirmPasswordController.text) {
                     customToast(msg: 'Password does not match', isError: true);
                   } else {
-                    verifyPhoneNumber(context);
+                    AuthService.sentOtp(
+                      phone: phoneController.text,
+                      errorStep: () {
+                        customToast(msg: 'Error in sending otp', isError: true);
+                      },
+                      nextStep: (verifyID) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OtpCodeScreen(
+                                verificationId: verifyID,
+                                phone: phoneController.text,
+                                email: emailController.text,
+                                password: passwordController.text),
+                          ),
+                        );
+                      },
+                    );
                   }
                 },
                 child: Container(

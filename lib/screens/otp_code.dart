@@ -1,8 +1,8 @@
+import 'package:agricos/controller/auth_controller.dart';
 import 'package:agricos/screens/after_login_page.dart';
 import 'package:agricos/utils/custom_widget/custom_text.dart';
 import 'package:agricos/utils/custom_widget/custom_toast.dart';
 import 'package:agricos/utils/custom_widget/heading.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -10,7 +10,14 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class OtpCodeScreen extends StatefulWidget {
   final String? phone;
   final String verificationId;
-  const OtpCodeScreen({super.key, this.phone, required this.verificationId});
+  final String email;
+  final String password;
+  const OtpCodeScreen(
+      {super.key,
+      this.phone,
+      required this.verificationId,
+      required this.email,
+      required this.password});
 
   @override
   State<OtpCodeScreen> createState() => _OtpCodeScreenState();
@@ -19,24 +26,6 @@ class OtpCodeScreen extends StatefulWidget {
 class _OtpCodeScreenState extends State<OtpCodeScreen> {
   TextEditingController textEditingController = TextEditingController();
   String currentText = "";
-  Future<void> signIn(String otp) async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithCredential(PhoneAuthProvider.credential(
-        verificationId: widget.verificationId,
-        smsCode: otp,
-      ));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const AfterLoginPage(),
-        ),
-      );
-    } catch (e) {
-      print('error is $e');
-      customToast(msg: 'Invalid OTP', isError: true);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,39 +65,36 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
                       fontweight: FontWeight.normal,
                     ),
                     SizedBox(height: 20.h),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 25.w),
-                      child: PinCodeTextField(
-                        appContext: context,
-                        length: 4,
-                        obscureText: false,
-                        animationType: AnimationType.fade,
-                        pinTheme: PinTheme(
-                          shape: PinCodeFieldShape.box,
-                          borderRadius: BorderRadius.circular(10.r),
-                          fieldHeight: 50.h,
-                          fieldWidth: 40.w,
-                          inactiveFillColor: Colors.grey.shade300,
-                          inactiveColor: Colors.black,
-                          activeColor: Colors.black,
-                        ),
-                        animationDuration: Duration(milliseconds: 300),
-                        enableActiveFill: true,
-                        onCompleted: (v) {
-                          print("Completed");
-                        },
-                        onChanged: (value) {
-                          print(value);
-                          setState(() {
-                            currentText = value;
-                          });
-                        },
-                        beforeTextPaste: (text) {
-                          print("Allowing to paste $text");
-
-                          return true;
-                        },
+                    PinCodeTextField(
+                      appContext: context,
+                      length: 6,
+                      obscureText: false,
+                      animationType: AnimationType.fade,
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(10.r),
+                        fieldHeight: 50.h,
+                        fieldWidth: 40.w,
+                        inactiveFillColor: Colors.grey.shade300,
+                        inactiveColor: Colors.black,
+                        activeColor: Colors.black,
                       ),
+                      animationDuration: const Duration(milliseconds: 300),
+                      enableActiveFill: true,
+                      onCompleted: (v) {
+                        print("Completed");
+                      },
+                      onChanged: (value) {
+                        print(value);
+                        setState(() {
+                          currentText = value;
+                        });
+                      },
+                      beforeTextPaste: (text) {
+                        print("Allowing to paste $text");
+
+                        return true;
+                      },
                     ),
                     SizedBox(height: 20.h),
                     Row(
@@ -133,7 +119,20 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
                     SizedBox(height: 20.h),
                     ElevatedButton(
                         onPressed: () {
-                          signIn(currentText);
+                          AuthService.signIn(
+                              otp: currentText,
+                              errorStep: (error) {
+                                customToast(msg: error, isError: true);
+                              },
+                              nextStep: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const AfterLoginPage()));
+                              },
+                              email: widget.email,
+                              password: widget.password);
                           // Navigator.pushReplacement(
                           //     context,
                           //     MaterialPageRoute(
@@ -147,7 +146,7 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
                           ),
                           minimumSize: Size(280.w, 40.h),
                         ),
-                        child: CustomText(
+                        child: const CustomText(
                           text: 'Next',
                         ))
                   ],

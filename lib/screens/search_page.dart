@@ -45,6 +45,7 @@ class SearchPage extends StatelessWidget {
                     ),
                     //search bar here
                     Container(
+                      alignment: Alignment.centerLeft,
                       height: 45.h,
                       width: 300.w,
                       padding: EdgeInsets.symmetric(horizontal: 5.w),

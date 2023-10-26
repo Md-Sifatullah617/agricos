@@ -12,7 +12,20 @@
           "package_name": "com.example.agricos"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "207898209213-b90f2ucmhk537tgh5voibiec58oekkuo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.agricos",
+            "certificate_hash": "abcb7efeed01d183813da6a941a884ea76d16e50"
+          }
+        },
+        {
+          "client_id": "207898209213-r9nes3397vlvt64152usj9tpudgf01l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDPhDFYmS3ERl4TrZ592R8W-gYYmMaxgKs"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207898209213-r9nes3397vlvt64152usj9tpudgf01l4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

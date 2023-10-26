@@ -1,3 +1,4 @@
+import 'package:agricos/controller/auth_controller.dart';
 import 'package:agricos/screens/after_login_page.dart';
 import 'package:agricos/screens/signup_screen.dart';
 import 'package:agricos/utils/custom_widget/custom_text.dart';
@@ -55,6 +56,9 @@ class _LoginPageState extends State<LoginPage> {
           top: 180.h,
           child: Image.asset(
             'assets/images/Leonardo_Diffusion_one_person_doing_work_in_agriculture_field_1 1.png',
+            height: 380.h,
+            width: 300.w,
+            fit: BoxFit.fill,
           ),
         ),
         Positioned(
@@ -67,6 +71,8 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Image.asset(
                   'assets/images/Farmer image for profile 1.png',
+                  height: 100.h,
+                  width: 100.w,
                 ),
                 SizedBox(height: 10.h),
                 CustomTextFormField(
@@ -134,21 +140,34 @@ class _LoginPageState extends State<LoginPage> {
                       iconData: SocialIconsFlutter.facebook_box,
                       iconSize: 25.sp,
                       iconColor: Colors.blue,
-                      link: 'https://www.instagram.com/akshitmadan_/',
+                      link: '',
                     ),
-                    SocialWidget(
-                      placeholderText: '',
-                      iconData: FontAwesomeIcons.google,
-                      iconSize: 25.sp,
-                      iconColor: Colors.red,
-                      link: 'https://www.instagram.com/akshitmadan_/',
+                    InkWell(
+                      onTap: () {
+                        AuthService.googleSignIn(errorStep: (error) {
+                          customToast(msg: error, isError: true);
+                        }, nextStep: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AfterLoginPage()));
+                        });
+                      },
+                      child: SocialWidget(
+                        placeholderText: '',
+                        iconData: FontAwesomeIcons.google,
+                        iconSize: 25.sp,
+                        iconColor: Colors.red,
+                        link: '',
+                      ),
                     ),
                     SocialWidget(
                       placeholderText: '',
                       iconData: SocialIconsFlutter.twitter,
                       iconSize: 25.sp,
                       iconColor: Colors.blue,
-                      link: 'https://www.instagram.com/akshitmadan_/',
+                      link: '',
                     ),
                   ],
                 )
@@ -160,7 +179,13 @@ class _LoginPageState extends State<LoginPage> {
             bottom: 80.h,
             child: ElevatedButton(
                 onPressed: () {
-                  firebaseLogIN();
+                  if (emailController.text.isEmpty ||
+                      pwdController.text.isEmpty) {
+                    customToast(
+                        msg: 'Please fill all the fields', isError: true);
+                  } else {
+                    firebaseLogIN();
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreenAccent.shade700,
