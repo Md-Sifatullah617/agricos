@@ -1,5 +1,6 @@
 import 'package:agricos/controller/auth_controller.dart';
 import 'package:agricos/utils/custom_widget/custom_text.dart';
+import 'package:agricos/utils/custom_widget/custom_toast.dart';
 import 'package:agricos/utils/custom_widget/heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,7 +50,10 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
               left: 25.w,
               child: InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  if (controller.isLoading.value) {
+                    controller.isLoading.value = false;
+                  }
+                  Get.back();
                 },
                 child: Image.asset(
                   'assets/icons/Vector (6).png',
@@ -134,10 +138,17 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
                               )
                             : ElevatedButton(
                                 onPressed: () {
-                                  controller.verifyOtp(
-                                      otp: currentText,
-                                      email: widget.email,
-                                      password: widget.password);
+                                  if (currentText.isEmpty ||
+                                      currentText.length < 6) {
+                                    customToast(
+                                        msg: 'Please enter a valid code',
+                                        isError: true);
+                                  } else {
+                                    controller.verifyOtp(
+                                        otp: currentText,
+                                        email: widget.email,
+                                        password: widget.password);
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
