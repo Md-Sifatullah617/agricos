@@ -1,41 +1,70 @@
 {
   "project_info": {
-    "project_number": "207898209213",
-    "project_id": "agricros-24eed",
-    "storage_bucket": "agricros-24eed.appspot.com"
+    "project_number": "49302266564",
+    "project_id": "esuit-84fd2",
+    "storage_bucket": "esuit-84fd2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:207898209213:android:22626d7983509fdbb680d4",
+        "mobilesdk_app_id": "1:49302266564:android:00553dd3366ac364e51f91",
         "android_client_info": {
           "package_name": "com.example.agricos"
         }
       },
       "oauth_client": [
         {
-          "client_id": "207898209213-b90f2ucmhk537tgh5voibiec58oekkuo.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.agricos",
-            "certificate_hash": "abcb7efeed01d183813da6a941a884ea76d16e50"
-          }
-        },
-        {
-          "client_id": "207898209213-r9nes3397vlvt64152usj9tpudgf01l4.apps.googleusercontent.com",
+          "client_id": "49302266564-dgmd24fdkpep1u3lqh61i6r73bn43ckh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDPhDFYmS3ERl4TrZ592R8W-gYYmMaxgKs"
+          "current_key": "AIzaSyCiA4Ks62Fk4W0vj80bz1EkDiJpVL1oqEI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "207898209213-r9nes3397vlvt64152usj9tpudgf01l4.apps.googleusercontent.com",
+              "client_id": "49302266564-dgmd24fdkpep1u3lqh61i6r73bn43ckh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49302266564:android:6d5ce4b2d45647b8e51f91",
+        "android_client_info": {
+          "package_name": "com.example.untitled"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49302266564-eq2ufeb8b12cg07mmkebkmpjndumb4fi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.untitled",
+            "certificate_hash": "7d22b8e82d4f7aeb87771c63f963f30492cceec0"
+          }
+        },
+        {
+          "client_id": "49302266564-dgmd24fdkpep1u3lqh61i6r73bn43ckh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiA4Ks62Fk4W0vj80bz1EkDiJpVL1oqEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49302266564-dgmd24fdkpep1u3lqh61i6r73bn43ckh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
