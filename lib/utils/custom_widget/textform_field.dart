@@ -25,7 +25,6 @@ class CustomTextFormField extends StatelessWidget {
         color: Colors.white,
       ),
       decoration: InputDecoration(
-        constraints: const BoxConstraints(maxHeight: 35),
         contentPadding: const EdgeInsets.only(bottom: -5, right: 0),
         hintText: hintTxt,
         hintStyle: TextStyle(

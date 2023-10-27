@@ -59,6 +59,7 @@ class AuthService extends GetxController {
                 return;
               },
               verificationFailed: (error) async {
+                isLoading.value = false;
                 print('error is $error');
                 return;
               },

@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
         title: 'Agricos',
         theme: ThemeData(
           primarySwatch: Colors.green,
