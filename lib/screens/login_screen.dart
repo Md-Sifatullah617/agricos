@@ -1,5 +1,4 @@
 import 'package:agricos/controller/auth_controller.dart';
-import 'package:agricos/screens/after_login_page.dart';
 import 'package:agricos/screens/signup_screen.dart';
 import 'package:agricos/utils/custom_widget/custom_text.dart';
 import 'package:agricos/utils/custom_widget/custom_toast.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:social_media_flutter/social_media_flutter.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,7 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController pwdController = TextEditingController();
-  bool isLoading = false;
+  final AuthService controller = Get.find<AuthService>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,15 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        AuthService.googleSignIn(errorStep: (error) {
-                          customToast(msg: error, isError: true);
-                        }, nextStep: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const AfterLoginPage()));
-                        });
+                        controller.googleSignIn();
                       },
                       child: SocialWidget(
                         placeholderText: '',
@@ -156,66 +148,42 @@ class _LoginPageState extends State<LoginPage> {
         ),
         Positioned(
             bottom: 80.h,
-            child: isLoading
-                ? SpinKitThreeBounce(
-                    color: Colors.lightGreenAccent.shade700,
-                    size: 20.sp,
-                  )
-                : ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      if (emailController.text.isEmpty ||
-                          pwdController.text.isEmpty) {
-                        customToast(
-                            msg: 'Please fill all the fields', isError: true);
-                        setState(() {
-                          isLoading = false;
-                        });
-                      } else {
-                        AuthService.firebaseLogIN(
-                            email: emailController.text,
-                            password: pwdController.text,
-                            nextStep: () {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const AfterLoginPage()));
-                            },
-                            errorStep: (error) {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              if (error.toString().contains('user-not-found')) {
-                                customToast(
-                                    msg: 'User not found', isError: true);
-                              } else if (error
-                                  .toString()
-                                  .contains('wrong-password')) {
-                                customToast(
-                                    msg: 'Wrong password', isError: true);
-                              } else {
-                                customToast(
-                                    msg: 'Something went wrong', isError: true);
-                              }
-                            });
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightGreenAccent.shade700,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.r),
+            child: Obx(
+              () => controller.isLoading.value
+                  ? SpinKitThreeBounce(
+                      color: Colors.lightGreenAccent.shade700,
+                      size: 20.sp,
+                    )
+                  : ElevatedButton(
+                      onPressed: () {
+                        if (emailController.text.isEmpty ||
+                            pwdController.text.isEmpty) {
+                          customToast(
+                              msg: 'Please fill all the fields', isError: true);
+                        } else if (!emailController.text.contains('@')) {
+                          customToast(
+                              msg: 'Please enter valid email', isError: true);
+                        } else if (pwdController.text.length < 6) {
+                          customToast(
+                              msg: 'Password must be 6 characters long',
+                              isError: true);
+                        } else {
+                          controller.firebaseLogIN(
+                              email: emailController.text,
+                              password: pwdController.text);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.lightGreenAccent.shade700,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        minimumSize: Size(150.w, 40.h),
                       ),
-                      minimumSize: Size(150.w, 40.h),
-                    ),
-                    child: const CustomText(
-                      text: 'Login',
-                    ))),
+                      child: const CustomText(
+                        text: 'Login',
+                      )),
+            )),
         Positioned(
             left: 25.w,
             bottom: 25.h,
