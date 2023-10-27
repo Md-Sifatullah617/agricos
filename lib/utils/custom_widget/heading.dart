@@ -34,7 +34,7 @@ class Heading extends StatelessWidget {
               ? Text(
                   'Welcome',
                   style: TextStyle(
-                    fontSize: 25.sp,
+                    fontSize: 20.sp,
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
                   ),

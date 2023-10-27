@@ -5,6 +5,7 @@ import 'package:agricos/utils/custom_widget/custom_toast.dart';
 import 'package:agricos/utils/custom_widget/outline_txt_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -19,7 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,6 +96,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 80.h),
               InkWell(
                 onTap: () {
+                  setState(() {
+                    isLoading = true;
+                  });
                   if (nameController.text.isEmpty ||
                       emailController.text.isEmpty ||
                       phoneController.text.isEmpty ||
@@ -102,14 +106,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       confirmPasswordController.text.isEmpty) {
                     customToast(
                         msg: 'Please fill all the fields', isError: true);
+                    setState(() {
+                      isLoading = false;
+                    });
+                  } else if (passwordController.text.length < 6) {
+                    customToast(
+                        msg: 'Password must be 6 characters long',
+                        isError: true);
+                    setState(() {
+                      isLoading = false;
+                    });
                   } else if (passwordController.text !=
                       confirmPasswordController.text) {
                     customToast(msg: 'Password does not match', isError: true);
+                    setState(() {
+                      isLoading = false;
+                    });
                   } else {
                     AuthService.sentOtp(
                       phone: phoneController.text,
                       errorStep: () {
                         customToast(msg: 'Error in sending otp', isError: true);
+                        setState(() {
+                          isLoading = false;
+                        });
                       },
                       nextStep: (verifyID) {
                         Navigator.push(
@@ -122,47 +142,55 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 password: passwordController.text),
                           ),
                         );
+                        setState(() {
+                          isLoading = false;
+                        });
                       },
                     );
                   }
                 },
-                child: Container(
-                    width: 300.w,
-                    height: 41.h,
-                    decoration: ShapeDecoration(
-                      color: const Color(0xFF89EE51),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(45),
-                      ),
-                      shadows: const [
-                        BoxShadow(
-                          color: Color(0x3F000000),
-                          blurRadius: 4,
-                          offset: Offset(0, 4),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: CustomText(
-                            text: 'Next',
-                            fontSize: 20.sp,
+                child: isLoading
+                    ? SpinKitThreeBounce(
+                        color: Colors.lightGreenAccent.shade700,
+                        size: 20.sp,
+                      )
+                    : Container(
+                        width: 300.w,
+                        height: 41.h,
+                        decoration: ShapeDecoration(
+                          color: const Color(0xFF89EE51),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(45),
                           ),
+                          shadows: const [
+                            BoxShadow(
+                              color: Color(0x3F000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
+                              spreadRadius: 0,
+                            )
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10.0),
-                          child: Image.asset(
-                            'assets/icons/Vector (5).png',
-                            height: 30.h,
-                            width: 30.w,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ],
-                    )),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: CustomText(
+                                text: 'Next',
+                                fontSize: 20.sp,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Image.asset(
+                                'assets/icons/Vector (5).png',
+                                height: 30.h,
+                                width: 30.w,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ],
+                        )),
               )
             ]),
           ))

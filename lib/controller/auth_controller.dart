@@ -5,6 +5,25 @@ class AuthService {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   static String verifyId = "";
+
+  static Future<void> firebaseLogIN({
+    required String email,
+    required String password,
+    required Function nextStep,
+    required Function(dynamic error) errorStep,
+  }) async {
+    try {
+      await _firebaseAuth
+          .signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+          .then((value) => nextStep());
+    } on FirebaseAuthException catch (e) {
+      errorStep(e);
+    }
+  }
+
   // to sent and otp to user
   static Future sentOtp({
     required String phone,
