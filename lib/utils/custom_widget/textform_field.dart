@@ -37,7 +37,7 @@ class CustomTextFormField extends StatelessWidget {
           color: Colors.white,
         ),
         suffixIcon: suffixicon == null
-            ? const SizedBox.shrink()
+            ? null
             : Icon(
                 suffixicon,
                 color: Colors.lightGreenAccent,

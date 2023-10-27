@@ -88,8 +88,9 @@ class AuthService {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      await _firebaseAuth.signInWithCredential(credential);
-      nextStep();
+      await _firebaseAuth
+          .signInWithCredential(credential)
+          .then((value) => nextStep());
     } on FirebaseAuthException catch (e) {
       errorStep(e.message.toString());
     } catch (e) {
