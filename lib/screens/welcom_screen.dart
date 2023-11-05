@@ -1,5 +1,5 @@
 import 'package:agricos/controller/auth_controller.dart';
-import 'package:agricos/screens/after_login_page.dart';
+import 'package:agricos/screens/dashboard.dart';
 import 'package:agricos/screens/login_screen.dart';
 import 'package:agricos/utils/custom_widget/heading.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class WelcomScreenPage extends StatelessWidget {
           InkWell(
             onTap: () async {
               await controller.isLoggedIn()
-                  ? Get.to(() => const AfterLoginPage())
+                  ? Get.to(() => const DashBoardScreen())
                   : Get.to(() => const LoginPage());
             },
             child: Stack(

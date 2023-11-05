@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../screens/dashboard.dart';
+
 class AuthService extends GetxController {
   var isLoading = false.obs;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -24,7 +26,7 @@ class AuthService extends GetxController {
       )
           .then((value) {
         isLoading.value = false;
-        Get.offAll(() => const AfterLoginPage());
+        Get.offAll(() => const DashBoardScreen());
       });
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;
@@ -56,6 +58,7 @@ class AuthService extends GetxController {
               timeout: const Duration(seconds: 30),
               phoneNumber: "+88$phone",
               verificationCompleted: (phoneAuthCredential) async {
+                isLoading.value = false;
                 return;
               },
               verificationFailed: (error) async {
@@ -65,6 +68,7 @@ class AuthService extends GetxController {
               },
               codeSent: (verificationId, forceResendingToken) async {
                 verifyId = verificationId;
+                isLoading.value = false;
                 Get.to(() => OtpCodeScreen(
                     verificationId: verifyId,
                     phone: phone,
@@ -72,6 +76,7 @@ class AuthService extends GetxController {
                     password: password));
               },
               codeAutoRetrievalTimeout: (verificationId) async {
+                isLoading.value = false;
                 return;
               })
           .onError((error, stackTrace) {
@@ -108,7 +113,7 @@ class AuthService extends GetxController {
       ))
           .then((value) {
         isLoading.value = false;
-        Get.offAll(() => const AfterLoginPage());
+        Get.offAll(() =>  AfterLoginPage());
       });
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;
@@ -130,7 +135,7 @@ class AuthService extends GetxController {
         idToken: googleAuth.idToken,
       );
       await _firebaseAuth.signInWithCredential(credential).then((value) {
-        Get.offAll(() => const AfterLoginPage());
+        Get.offAll(() =>  AfterLoginPage());
       });
     } on FirebaseAuthException catch (e) {
       customToast(msg: e.message.toString(), isError: true);
