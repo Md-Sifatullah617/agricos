@@ -55,7 +55,7 @@ class AuthService extends GetxController {
       isLoading.value = true;
       await _firebaseAuth
           .verifyPhoneNumber(
-              timeout: const Duration(seconds: 30),
+              timeout: const Duration(seconds: 60),
               phoneNumber: "+88$phone",
               verificationCompleted: (phoneAuthCredential) async {
                 isLoading.value = false;
@@ -67,6 +67,7 @@ class AuthService extends GetxController {
                 return;
               },
               codeSent: (verificationId, forceResendingToken) async {
+                isLoading.value = false;
                 verifyId = verificationId;
                 isLoading.value = false;
                 Get.to(() => OtpCodeScreen(
