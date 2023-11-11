@@ -1,3 +1,5 @@
+import 'package:agricos/screens/nextpage/my_corps.dart';
+
 List homeList = [
   {
     'id': 1,
@@ -128,4 +130,24 @@ List searchList = [
         'https://network.expertisefinder.com/expert-profile-photo/bill-miller',
     'exp': 'Expert In:\n > Floricultural crop production',
   }
+];
+
+List dbButtonset = [
+  {'title': 'My Crops', 'navigate': () => const MyCorpsPage()},
+  {'title': 'Profiles', 'navigate': ''},
+  {'title': 'Crop Doctor', 'navigate': ''},
+  {'title': 'Seller', 'navigate': ''},
+  {'title': 'Farming Data Book', 'navigate': ''},
+  {'title': 'Transmission Lender', 'navigate': ''},
+  {'title': 'Daza refer', 'navigate': ''},
+  {'title': 'Calender', 'navigate': ''},
+  {'title': 'Contact Us', 'navigate': ''},
+];
+
+List myCorpsSection = [
+  {'title': 'O Food', 'navigate': ""},
+  {'title': 'R', 'navigate': ''},
+  {'title': 'V', 'navigate': ''},
+  {'title': 'Water', 'navigate': ''},
+  {'title': 'Soil', 'navigate': ''},
 ];

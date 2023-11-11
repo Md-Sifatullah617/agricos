@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Heading extends StatelessWidget {
   final bool? title;
+  final String? titleText;
   final double? logoPosition;
   final bool? needChange;
   const Heading({
@@ -10,6 +11,7 @@ class Heading extends StatelessWidget {
     this.title,
     this.logoPosition,
     this.needChange = false,
+    this.titleText,
   });
 
   @override
@@ -29,13 +31,13 @@ class Heading extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 75.h,
+          top: title ?? false ? 140.h : 75.h,
           child: title ?? false
               ? Text(
-                  'Welcome',
+                  titleText ?? 'Welcome',
                   style: TextStyle(
                     fontSize: 20.sp,
-                    color: Colors.green,
+                    color: title ?? false ? Colors.black : Colors.green,
                     fontWeight: FontWeight.bold,
                   ),
                 )
