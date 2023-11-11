@@ -74,23 +74,23 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
               ],
             ),
           ),
-          // Positioned(
-          //   top: 120.h,
-          //   left: 25.w,
-          //   child: InkWell(
-          //     onTap: () async {
-          //       await FirebaseAuth.instance.signOut().then((value) =>
-          //           Navigator.pushReplacement(
-          //               context,
-          //               MaterialPageRoute(
-          //                   builder: (context) => const LoginPage())));
-          //     },
-          //     child: Image.asset(
-          //       'assets/icons/Vector (6).png',
-          //     ),
-          //   ),
-          // ),
-          //country picker here
+          Positioned(
+            top: 120.h,
+            left: 25.w,
+            child: InkWell(
+              onTap: () async {
+                await FirebaseAuth.instance.signOut().then((value) =>
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage())));
+              },
+              child: Image.asset(
+                'assets/icons/Vector (6).png',
+              ),
+            ),
+          ),
+          // country picker here
           // Positioned(
           //   top: 160.h,
           //   child: Container(

@@ -48,10 +48,12 @@ class _LoginPageState extends State<LoginPage> {
             width: 300.w,
             child: Column(
               children: [
-                Image.asset(
-                  'assets/images/Farmer image for profile 1.png',
-                  height: 100.h,
-                  width: 100.w,
+                ClipOval(
+                  child: Image.asset(
+                    'assets/images/sifat.jpg',
+                    height: 100.h,
+                    width: 100.w,
+                  ),
                 ),
                 SizedBox(height: 10.h),
                 CustomTextFormField(
